@@ -6,7 +6,7 @@ import '../model/product_model.dart';
 import '../utils/size.dart';
 
 class ProductDetailPage extends StatelessWidget {
-  final Product product;
+  final Products product;
 
   const ProductDetailPage({super.key, required this.product});
 
@@ -15,7 +15,7 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(product.name),
+        title: Text(product.productName!),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -24,14 +24,18 @@ class ProductDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl: product.imageUrl,
+                imageUrl: product.productImage!,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Icon(
                   Icons.image,
                   size: SizeConfig.screenWidth! / 4,
                   color: Colors.grey,
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image,
+                  size: SizeConfig.screenWidth! / 4,
+                  color: Colors.grey,
+                ),
                 width: double.infinity,
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.05),
@@ -43,12 +47,12 @@ class ProductDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.name,
+                        product.productName ?? "",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       SizedBox(height: SizeConfig.screenHeight! * 0.01),
                       Text(
-                        'Price:\$${product.price.toStringAsFixed(2)}',
+                        'Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -57,7 +61,7 @@ class ProductDetailPage extends StatelessWidget {
                     ],
                   ),
                   Chip(
-                    label: Text(product.category),
+                    label: Text(product.productCategory ?? ""),
                     backgroundColor: primaryColor,
                     labelStyle:
                         Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -68,12 +72,12 @@ class ProductDetailPage extends StatelessWidget {
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.03),
               Text(
-                'Location: ${product.location}',
+                'Location: ${product.productLocation ?? ""}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.03),
               Text(
-                product.description,
+                product.productDescription ?? "",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

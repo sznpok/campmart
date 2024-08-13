@@ -16,7 +16,7 @@ class AuthRepo {
   }) async {
     try {
       final response = await _dio.post(
-        'https://your-api-endpoint.com/register',
+        '${ApiUrl.basUrl}users/signup',
         // replace with your actual endpoint
         data: {
           'name': name,
@@ -44,21 +44,22 @@ class AuthRepo {
   }) async {
     try {
       final response = await _dio.post(
-        'https://your-api-endpoint.com/login',
+        '${ApiUrl.basUrl}users/login',
         data: {
           'email': email,
           'password': password,
         },
       );
-
       if (response.statusCode == 200) {
         log("Login successful");
         ApiToken.token = response.data['token'];
         writeTokenAccess(ApiToken.token);
         return response.data;
+      } else if (response.statusCode == 400) {
+        log("Login failed ${response.data['errors']}");
+        return response.data['errors'];
       } else {
-        // Handle error response
-        throw Exception('Failed to log in');
+        throw response.data['errors'];
       }
     } catch (e) {
       throw Exception('Error logging in: $e');

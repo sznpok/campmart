@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
           child: Text(
-        "Health Camp",
+        "CampMart",
         style: Theme.of(context).textTheme.headlineMedium!.copyWith(
               color: primaryColor,
               fontWeight: FontWeight.w600,

@@ -41,6 +41,9 @@ dependencies:
   cached_network_image: ^3.4.0
   flutter_secure_storage: ^9.2.2
   khalti_flutter: ^3.0.0
+  image_picker: ^1.1.2
+  dotted_border: ^2.1.0
+  file_picker: ^8.1.1
 
 dev_dependencies:
   flutter_test:

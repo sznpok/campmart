@@ -1,3 +1,4 @@
+import 'package:campmart/bloc/add_product_bloc/add_product_bloc.dart';
 import 'package:campmart/bloc/khalti_bloc/khalit_bloc.dart';
 import 'package:campmart/pages/splash_screen.dart';
 import 'package:campmart/repo/khalti_repo.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) =>
                     KhaltiBloc(khaltiRepository: KhaltiRepository()),
+              ),
+              BlocProvider(
+                create: (context) => AddProductBloc(),
               ),
             ],
             child: MaterialApp(

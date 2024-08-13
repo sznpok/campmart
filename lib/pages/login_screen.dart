@@ -187,18 +187,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                         content: Text(
                                             'User logged in successfully!')),
                                   );
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           const BottomNavBarScreen(),
                                     ),
+                                    (route) => false,
                                   );
-                                  // Navigate to another page or perform other actions
                                 } else if (state is LoginFailure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Error: ${state.error}')),
+                                    const SnackBar(
+                                        content: Text(
+                                            'Please enter valid email and password')),
                                   );
                                 }
                               },
