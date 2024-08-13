@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constant.dart';
+import '../utils/custom_storage.dart';
+import 'bottom_nav_bar_screen.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,13 +16,38 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  navigateScreen() async {
+    String? accessToken = await readTokenAccess();
+    if (accessToken != null && accessToken.isNotEmpty) {
+      ApiToken.token = accessToken.toString();
+    }
+    if (accessToken != null) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const BottomNavBarScreen()),
+            (route) => false,
+          );
+        },
+      );
+    } else {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false,
+          );
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
-    });
+    navigateScreen();
   }
 
   @override

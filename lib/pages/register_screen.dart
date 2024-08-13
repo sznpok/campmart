@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool obscureText = false;
+  bool obscureText = true;
   final _formKey = GlobalKey<FormState>();
 
   @override

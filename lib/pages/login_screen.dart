@@ -24,7 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool obscureText = false;
+  bool obscureText = true;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -118,8 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                isDense: true,
-                                //prefix: Text("+977"),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(
                                       SizeConfig.padding!),

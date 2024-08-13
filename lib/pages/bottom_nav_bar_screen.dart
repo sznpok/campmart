@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         builder: (context, state) {
           switch (state) {
             case Page1():
-              return Container();
+              return ProductGrid();
             case Page2():
               return Container();
             case Page3():

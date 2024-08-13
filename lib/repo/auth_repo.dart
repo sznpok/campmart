@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+
+import '../utils/constant.dart';
+import '../utils/custom_storage.dart';
 
 class AuthRepo {
   final Dio _dio = Dio();
@@ -47,9 +52,9 @@ class AuthRepo {
       );
 
       if (response.statusCode == 200) {
-        // Handle successful response
-        print('User logged in successfully');
-        // Optionally return the response or token if needed
+        log("Login successful");
+        ApiToken.token = response.data['token'];
+        writeTokenAccess(ApiToken.token);
         return response.data;
       } else {
         // Handle error response
