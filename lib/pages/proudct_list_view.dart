@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/product_model.dart';
+import 'bottom_nav_bar_screen.dart';
 import 'login_screen.dart';
 
 class ProductGrid extends StatefulWidget {
@@ -47,6 +48,18 @@ class _ProductGridState extends State<ProductGrid> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddProductBottomSheet(),
+            ),
+          );
+        },
+        label: const Text("Add"),
+        icon: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: const Text('All Products'),
         actions: [
@@ -78,8 +91,8 @@ class _ProductGridState extends State<ProductGrid> {
           },
           builder: (context, state) {
             if (state is FetchProductError) {
-              return Center(
-                child: Text('Error: ${state.message}'),
+              return const Center(
+                child: Text("No data found"),
               );
             }
             if (state is FetchProductLoading) {
@@ -88,65 +101,74 @@ class _ProductGridState extends State<ProductGrid> {
               );
             }
             if (state is FetchProductLoaded) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 0.8,
-                ),
-                itemCount: state.products!.length,
-                itemBuilder: (context, index) {
-                  final product = state.products![index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ProductDetailPage(product: product),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: CachedNetworkImage(
-                                imageUrl: product.productImage!,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) => Icon(
-                                  Icons.image,
-                                  size: SizeConfig.screenWidth! / 4,
-                                  color: Colors.grey,
-                                ),
-                                errorWidget: (context, url, error) => Icon(
-                                  Icons.image,
-                                  size: SizeConfig.screenWidth! / 4,
-                                  color: Colors.grey,
-                                ),
-                                width: double.infinity,
+              return state.products!.isNotEmpty
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio: 0.8,
+                      ),
+                      itemCount: state.products!.length,
+                      itemBuilder: (context, index) {
+                        final product = state.products![index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailPage(product: product),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: CachedNetworkImage(
+                                      imageUrl: product.productImage!,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => Icon(
+                                        Icons.image,
+                                        size: SizeConfig.screenWidth! / 4,
+                                        color: Colors.grey,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(
+                                        Icons.image,
+                                        size: SizeConfig.screenWidth! / 4,
+                                        color: Colors.grey,
+                                      ),
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Product: ${product.productName ?? ""}",
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.screenHeight! * 0.01),
+                                  Text(
+                                      'Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}'),
+                                  Text(
+                                      "Location: ${product.productLocation ?? ""}"),
+                                ],
                               ),
                             ),
-                            Text(
-                              "Product: ${product.productName ?? ""}",
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            SizedBox(height: SizeConfig.screenHeight! * 0.01),
-                            Text(
-                                'Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}'),
-                            Text("Location: ${product.productLocation ?? ""}"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+                          ),
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text("No data"),
+                    );
             }
             return const Center(
               child: Center(

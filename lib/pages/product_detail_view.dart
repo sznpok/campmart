@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:campmart/pages/payment_form.dart';
 import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,19 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PaymentForm(),
+            ),
+          );
+        },
+        backgroundColor: Colors.blue,
+        label: const Text("Pay"),
+        icon: const Icon(Icons.payment),
+      ),
       appBar: AppBar(
         title: Text(product.productName!),
       ),

@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constant.dart';
 import '../utils/custom_storage.dart';
-import 'bottom_nav_bar_screen.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(seconds: 1),
         () {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const BottomNavBarScreen()),
+            MaterialPageRoute(builder: (context) => ProductGrid()),
             (route) => false,
           );
         },
