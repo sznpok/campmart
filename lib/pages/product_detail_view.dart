@@ -20,7 +20,9 @@ class ProductDetailPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const PaymentForm(),
+              builder: (context) => PaymentForm(
+                product: product,
+              ),
             ),
           );
         },

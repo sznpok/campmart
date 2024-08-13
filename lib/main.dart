@@ -20,13 +20,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigatorKey = GlobalKey<NavigatorState>();
     SizeConfig().init(context);
     return KhaltiScope(
         publicKey: "publicKey",
-        navigatorKey: navigatorKey,
         enabledDebugging: true,
-        builder: (context, child) {
+        builder: (context, key) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -45,6 +43,7 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
               title: 'Camp Mart',
+              navigatorKey: key,
               debugShowCheckedModeBanner: false,
               theme: theme(context),
               localizationsDelegates: const [

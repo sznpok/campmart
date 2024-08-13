@@ -17,6 +17,7 @@ class KhaltiRepository {
         productIdentity: productIdentity,
         productName: productName,
         mobile: "9860876602",
+        mobileReadOnly: true,
       ),
       preferences: [PaymentPreference.khalti, PaymentPreference.eBanking],
       onSuccess: onSuccess,
