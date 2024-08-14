@@ -1,5 +1,3 @@
-// lib/blocs/khalti_state.dart
-
 import 'package:equatable/equatable.dart';
 
 abstract class KhaltiState extends Equatable {

@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:campmart/bloc/fetch_product_bloc/fetch_product_bloc.dart';
+import 'package:campmart/pages/bottom_nav_bar_screen.dart';
 import 'package:campmart/pages/product_detail_view.dart';
 import 'package:campmart/utils/custom_storage.dart';
 import 'package:campmart/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../model/product_model.dart';
-import 'bottom_nav_bar_screen.dart';
 import 'login_screen.dart';
 
 class ProductGrid extends StatefulWidget {
@@ -18,26 +17,6 @@ class ProductGrid extends StatefulWidget {
 }
 
 class _ProductGridState extends State<ProductGrid> {
-  final List<Product> products = [
-    Product(
-      imageUrl: 'https://example.com/product1.jpg',
-      name: 'Product 1',
-      category: 'Category 1',
-      price: 29.99,
-      location: 'New York, USA',
-      description: 'This is the description of Product 1.',
-    ),
-    Product(
-      imageUrl: 'https://example.com/product2.jpg',
-      name: 'Product 2',
-      category: 'Category 2',
-      price: 39.99,
-      location: 'Los Angeles, USA',
-      description: 'This is the description of Product 2.',
-    ),
-    // Add more products here...
-  ];
-
   @override
   void initState() {
     BlocProvider.of<FetchProductBloc>(context).add(FetchProduct());
@@ -132,7 +111,7 @@ class _ProductGridState extends State<ProductGrid> {
                                 children: [
                                   Expanded(
                                     child: CachedNetworkImage(
-                                      imageUrl: product.productImage!,
+                                      imageUrl: "${product.productImage}",
                                       fit: BoxFit.cover,
                                       placeholder: (context, url) => Icon(
                                         Icons.image,

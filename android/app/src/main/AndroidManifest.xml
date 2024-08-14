@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="{your package name}"
+                    android:host="com.example.campmart"
                     android:scheme="kpg" />
             </intent-filter>
         </activity>

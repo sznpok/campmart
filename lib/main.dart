@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return KhaltiScope(
-        publicKey: "publicKey",
+        publicKey: 'test_public_key_d5d9f63743584dc38753056b0cc737d5',
         enabledDebugging: true,
-        builder: (context, key) {
+        builder: (context, navKey) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
               title: 'Camp Mart',
-              navigatorKey: key,
+              navigatorKey: navKey,
               debugShowCheckedModeBanner: false,
               theme: theme(context),
               localizationsDelegates: const [

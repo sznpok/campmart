@@ -21,7 +21,7 @@ class _PaymentFormState extends State<PaymentForm> {
 
   initState() {
     super.initState();
-    _amountController.text = widget.product.productPrice!.toStringAsFixed(2);
+    _amountController.text = widget.product.productPrice.toString();
   }
 
   void _startPayment(BuildContext context) {
