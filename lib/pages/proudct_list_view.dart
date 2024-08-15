@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:campmart/bloc/fetch_product_bloc/fetch_product_bloc.dart';
-import 'package:campmart/pages/bottom_nav_bar_screen.dart';
 import 'package:campmart/pages/product_detail_view.dart';
 import 'package:campmart/utils/custom_storage.dart';
 import 'package:campmart/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../utils/constant.dart';
 import 'login_screen.dart';
 
 class ProductGrid extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ProductGridState extends State<ProductGrid> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton.extended(
+      /*floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
@@ -38,7 +38,7 @@ class _ProductGridState extends State<ProductGrid> {
         },
         label: const Text("Add"),
         icon: const Icon(Icons.add),
-      ),
+      ),*/
       appBar: AppBar(
         title: const Text('All Products'),
         actions: [
@@ -92,6 +92,7 @@ class _ProductGridState extends State<ProductGrid> {
                       itemCount: state.products!.length,
                       itemBuilder: (context, index) {
                         final product = state.products![index];
+                        print("${ApiUrl.basUrl}images/${product.productImage}");
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -111,7 +112,8 @@ class _ProductGridState extends State<ProductGrid> {
                                 children: [
                                   Expanded(
                                     child: CachedNetworkImage(
-                                      imageUrl: "${product.productImage}",
+                                      imageUrl:
+                                          "${ApiUrl.basUrl}images/${product.productImage}",
                                       fit: BoxFit.cover,
                                       placeholder: (context, url) => Icon(
                                         Icons.image,

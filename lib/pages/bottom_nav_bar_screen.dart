@@ -59,7 +59,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           }
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      /* floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
           return state is Page1
@@ -77,7 +77,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                 )
               : const SizedBox.shrink();
         },
-      ),
+      ),*/
       bottomNavigationBar: Container(
         height: Platform.isAndroid ? 60 : null,
         margin: Platform.isAndroid
