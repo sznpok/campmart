@@ -4,7 +4,6 @@ import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../model/product_model.dart';
-import '../utils/constant.dart';
 import '../utils/size.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -41,8 +40,7 @@ class ProductDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl:
-                    "${ApiUrl.basUrl}public/products/${product.productImage}",
+                imageUrl: "${product.productImage}",
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Icon(
                   Icons.image,

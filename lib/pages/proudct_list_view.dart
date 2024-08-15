@@ -112,8 +112,7 @@ class _ProductGridState extends State<ProductGrid> {
                                 children: [
                                   Expanded(
                                     child: CachedNetworkImage(
-                                      imageUrl:
-                                          "${ApiUrl.basUrl}images/${product.productImage}",
+                                      imageUrl: "${product.productImage}",
                                       fit: BoxFit.cover,
                                       placeholder: (context, url) => Icon(
                                         Icons.image,
