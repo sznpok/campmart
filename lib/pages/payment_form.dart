@@ -32,7 +32,7 @@ class _PaymentFormState extends State<PaymentForm> {
             StartPaymentEvent(
               context: context,
               amount: amount,
-              productIdentity: widget.product.sId!,
+              productIdentity: widget.product.sId ?? "",
               productName: widget.product.productName!,
             ),
           );

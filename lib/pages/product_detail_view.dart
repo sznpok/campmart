@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../model/product_model.dart';
 import '../utils/size.dart';
+import 'cash_delivery_view.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Products product;
@@ -96,6 +97,27 @@ class ProductDetailPage extends StatelessWidget {
                 product.productDescription ?? "",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: const Text('Cash on Delivery'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CashOnDeliveryForm(),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),
