@@ -25,8 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(
         const Duration(seconds: 1),
         () {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => ProductGrid()),
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductGrid(),
+            ),
             (route) => false,
           );
         },

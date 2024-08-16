@@ -33,7 +33,7 @@ class _PaymentFormState extends State<PaymentForm> {
               context: context,
               amount: amount,
               productIdentity: widget.product.sId ?? "",
-              productName: widget.product.productName!,
+              productName: widget.product.productName ?? "not found",
             ),
           );
     }

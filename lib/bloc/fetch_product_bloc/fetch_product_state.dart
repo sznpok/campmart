@@ -3,20 +3,33 @@ part of 'fetch_product_bloc.dart';
 @immutable
 sealed class FetchProductState {}
 
-final class FetchProductInitial extends FetchProductState {}
+class FetchProductInitial extends FetchProductState {}
 
-final class FetchProductLoading extends FetchProductState {}
+class FetchProductLoading extends FetchProductState {}
 
-final class FetchProductLoaded extends FetchProductState {
-  final List<Products>? products;
+class FetchProductLoaded extends FetchProductState {
+  final List<Products> products;
 
-  FetchProductLoaded({this.products});
+  FetchProductLoaded({required this.products});
 }
 
-final class FetchProductError extends FetchProductState {
-  final String? message;
+class FetchProductError extends FetchProductState {
+  final String message;
 
-  FetchProductError({this.message});
+  FetchProductError({required this.message});
 }
 
-final class FetchProductAuthError extends FetchProductState {}
+class FetchProductAuthError extends FetchProductState {}
+
+class CartUpdated extends FetchProductState {
+  final List<Products> cartItems;
+  final double? totalPrice;
+
+  CartUpdated({required this.cartItems, this.totalPrice});
+}
+
+class CartOperationError extends FetchProductState {
+  final String message;
+
+  CartOperationError({required this.message});
+}

@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:campmart/pages/payment_form.dart';
 import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/fetch_product_bloc/fetch_product_bloc.dart';
 import '../model/product_model.dart';
 import '../utils/size.dart';
-import 'cash_delivery_view.dart';
+import '../widgets/custom_toast.dart';
+import 'cart_screen.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Products product;
@@ -17,6 +19,15 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.read<FetchProductBloc>().add(AddToCart(product: product));
+          showToast(title: "Product Added to cart successfully");
+        },
+        label: const Text(
+          "Add to Cart",
+        ),
+      ),
+      /*floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
@@ -30,9 +41,22 @@ class ProductDetailPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         label: const Text("Pay"),
         icon: const Icon(Icons.payment),
-      ),
+      ),*/
       appBar: AppBar(
         title: Text(product.productName!),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              );
+            },
+            icon: Icon(Icons.shopping_cart),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -98,7 +122,7 @@ class ProductDetailPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              ElevatedButton(
+              /*ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   foregroundColor: Colors.white,
@@ -117,7 +141,7 @@ class ProductDetailPage extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              )*/
             ],
           ),
         ),

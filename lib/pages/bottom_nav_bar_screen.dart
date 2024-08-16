@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:campmart/bloc/add_product_bloc/add_product_bloc.dart';
+import 'package:campmart/pages/cart_screen.dart';
 import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:campmart/utils/size.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -49,11 +50,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             case Page1():
               return ProductGrid();
             case Page2():
-              return Container();
-            case Page3():
-              return Container();
-            case Page4():
-              return Container();
+              return const CartScreen();
             default:
               return const SizedBox();
           }
@@ -104,7 +101,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             elevation: 0.0,
             showSelectedLabels: true,
             unselectedItemColor: shadowColor,
@@ -125,16 +122,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                 label: "home",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.campaign),
-                label: "CampMart",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark),
-                label: "History",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: "Me",
+                icon: Icon(Icons.shopping_cart),
+                label: "Cart",
               ),
             ],
           ),

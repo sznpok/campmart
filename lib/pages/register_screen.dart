@@ -1,4 +1,5 @@
 import 'package:campmart/pages/login_screen.dart';
+import 'package:campmart/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -233,11 +234,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             BlocConsumer<RegisterBloc, RegisterState>(
                               listener: (context, state) {
                                 if (state is RegisterSuccess) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'User registered successfully!'),
-                                        backgroundColor: Colors.green),
+                                  showToast(
+                                    title: "User registered successfully",
+                                    color: Colors.green,
                                   );
                                   Navigator.pushAndRemoveUntil(
                                     context,
@@ -247,10 +246,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     (route) => false,
                                   );
                                 } else if (state is RegisterFailure) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Error: ${state.error}'),
-                                        backgroundColor: Colors.red),
+                                  showToast(
+                                    title: "Registered Failed",
+                                    color: Colors.red,
                                   );
                                 }
                               },
@@ -279,12 +277,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ),
                                                 );
                                           } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                    'Please fill all the fields'),
-                                              ),
+                                            showToast(
+                                              title:
+                                                  "Please fill all the fields",
+                                              color: Colors.grey,
                                             );
                                           }
                                         },

@@ -1,3 +1,4 @@
+import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:campmart/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,7 @@ import '../repo/auth_repo.dart';
 import '../utils/size.dart';
 import '../utils/theme.dart';
 import '../widgets/custom_button.dart';
-import 'bottom_nav_bar_screen.dart';
+import '../widgets/custom_toast.dart';
 
 @override
 class LoginScreen extends StatefulWidget {
@@ -182,24 +183,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             BlocConsumer<LoginBloc, LoginState>(
                               listener: (context, state) {
                                 if (state is LoginSuccess) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'User logged in successfully!')),
-                                  );
+                                  showToast(title: "User login successfully");
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BottomNavBarScreen(),
+                                      builder: (context) => ProductGrid(),
                                     ),
                                     (route) => false,
                                   );
                                 } else if (state is LoginFailure) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'Please enter valid email and password')),
+                                  showToast(
+                                    title:
+                                        "Please enter valid email and password",
+                                    color: Colors.red,
                                   );
                                 }
                               },
@@ -222,12 +218,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   ),
                                                 );
                                           } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                    'Please fill all the fields'),
-                                              ),
+                                            showToast(
+                                              title:
+                                                  "Please fill all the fields",
+                                              color: Colors.grey,
                                             );
                                           }
                                         },
