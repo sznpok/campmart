@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/fetch_product_bloc/fetch_product_bloc.dart';
 import '../model/product_model.dart';
+import '../utils/constant.dart';
 import '../utils/size.dart';
 import '../widgets/custom_toast.dart';
 import 'cart_screen.dart';
@@ -65,7 +66,7 @@ class ProductDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl: "${product.productImage}",
+                imageUrl: "${ApiUrl.basUrl}${product.productImage}",
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Icon(
                   Icons.image,
@@ -93,11 +94,15 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       SizedBox(height: SizeConfig.screenHeight! * 0.01),
                       Text(
-                        'Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: primaryColor),
+                        'New Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}',
+                      ),
+                      Text(
+                        "Old Price:\$${product.oldPrice != null ? product.oldPrice!.toStringAsFixed(2) : ""}",
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                              decoration: product.available!
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                            ),
                       ),
                     ],
                   ),
@@ -110,11 +115,6 @@ class ProductDetailPage extends StatelessWidget {
                             ),
                   ),
                 ],
-              ),
-              SizedBox(height: SizeConfig.screenHeight! * 0.03),
-              Text(
-                'Location: ${product.productLocation ?? ""}',
-                style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.03),
               Text(

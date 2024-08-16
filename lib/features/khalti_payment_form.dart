@@ -5,6 +5,7 @@ import '../bloc/khalti_bloc/khalit_bloc.dart';
 import '../bloc/khalti_bloc/khalit_event.dart';
 import '../bloc/khalti_bloc/khalit_state.dart';
 import '../model/product_model.dart';
+import '../widgets/custom_toast.dart';
 
 class PaymentForm extends StatefulWidget {
   final Products product;
@@ -43,22 +44,19 @@ class _PaymentFormState extends State<PaymentForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Khalti Payment'),
+        title: const Text('Khalti Payment'),
       ),
       body: BlocListener<KhaltiBloc, KhaltiState>(
         listener: (context, state) {
           if (state is PaymentSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Payment Successful: ${state.token}')),
-            );
+            showToast(
+                title: 'Payment Successful: ${state.token}',
+                color: Colors.green);
           } else if (state is PaymentFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Payment Failed: ${state.error}')),
-            );
+            showToast(
+                title: 'Payment Failed: ${state.error}', color: Colors.red);
           } else if (state is PaymentCancelled) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment Cancelled')),
-            );
+            showToast(title: 'Payment Cancelled', color: Colors.orangeAccent);
           }
         },
         child: Padding(
@@ -70,7 +68,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 TextFormField(
                   controller: _amountController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Amount (in NPR)',
                     border: OutlineInputBorder(),
                   ),
@@ -84,12 +82,12 @@ class _PaymentFormState extends State<PaymentForm> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 BlocBuilder<KhaltiBloc, KhaltiState>(
                   builder: (context, state) {
                     return ElevatedButton(
                       onPressed: () => _startPayment(context),
-                      child: Text('Pay with Khalti'),
+                      child: const Text('Pay with Khalti'),
                     );
                   },
                 ),

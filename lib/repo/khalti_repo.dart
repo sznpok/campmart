@@ -11,7 +11,7 @@ class KhaltiRepository {
     required Function(PaymentFailureModel) onFailure,
     required Function() onCancel,
   }) async {
-    KhaltiScope.of(context).pay(
+    await KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: amount,
         productIdentity: productIdentity,

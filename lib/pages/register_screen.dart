@@ -20,7 +20,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
-  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -30,7 +29,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _nameController.dispose();
-    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -125,36 +123,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               decoration: const InputDecoration(
                                 hintText: "John Doe",
-                              ),
-                            ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.01,
-                            ),
-                            Text(
-                              'Username',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                  ),
-                            ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.01,
-                            ),
-                            TextFormField(
-                              controller: _usernameController,
-                              keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.done,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter your username';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                hintText: "username",
                               ),
                             ),
                             SizedBox(
@@ -260,8 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         title: "Continue",
                                         onPressed: () {
                                           final name = _nameController.text;
-                                          final username =
-                                              _usernameController.text;
+
                                           final email = _emailController.text;
                                           final password =
                                               _passwordController.text;
@@ -271,7 +238,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             context.read<RegisterBloc>().add(
                                                   RegisterUserEvent(
                                                     name: name,
-                                                    username: username,
                                                     email: email,
                                                     password: password,
                                                   ),

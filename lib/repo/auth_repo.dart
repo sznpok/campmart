@@ -10,17 +10,15 @@ class AuthRepo {
 
   Future<void> registerUser({
     required String name,
-    required String username,
     required String email,
     required String password,
   }) async {
     try {
       final response = await _dio.post(
-        '${ApiUrl.basUrl}users/signup',
+        '${ApiUrl.basUrl}/auth/signup',
         // replace with your actual endpoint
         data: {
           'name': name,
-          'username': username,
           'email': email,
           'password': password,
         },
@@ -44,7 +42,7 @@ class AuthRepo {
   }) async {
     try {
       final response = await _dio.post(
-        '${ApiUrl.basUrl}users/login',
+        '${ApiUrl.basUrl}/auth/login',
         data: {
           'email': email,
           'password': password,

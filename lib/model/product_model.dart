@@ -20,6 +20,7 @@ class Products {
   String? sId;
   String? productName;
   int? productPrice;
+  int? oldPrice;
   String? productDescription;
   String? productCategory;
   String? productLocation;
@@ -28,6 +29,7 @@ class Products {
   String? createAt;
   String? updatedAt;
   int? v;
+  bool? available;
 
   Products(
       {this.sId,
@@ -40,16 +42,20 @@ class Products {
       this.isApproved,
       this.createAt,
       this.updatedAt,
+      this.available,
+      this.oldPrice,
       this.v});
 
   Products.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    productName = json['productName'];
-    productPrice = json['productPrice'];
-    productDescription = json['productDescription'];
-    productCategory = json['productCategory'];
+    productName = json['name'];
+    productPrice = json['new_price'];
+    oldPrice = json['old_price'];
+    productDescription = json['description'];
+    productCategory = json['category'];
     productLocation = json['productLocation'];
-    productImage = json['productImage'];
+    productImage = json['image'];
+    available = json['avilable'];
     isApproved = json['isApproved'];
     createAt = json['createAt'];
     updatedAt = json['updatedAt'];
@@ -68,6 +74,8 @@ class Products {
     data['isApproved'] = isApproved;
     data['createAt'] = createAt;
     data['updatedAt'] = updatedAt;
+    data['old_price'] = oldPrice;
+    data['available'] = available;
     data['v'] = v;
     return data;
   }

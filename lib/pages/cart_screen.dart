@@ -1,9 +1,9 @@
 import 'package:campmart/pages/cash_delivery_view.dart';
-import 'package:campmart/pages/payment_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/fetch_product_bloc/fetch_product_bloc.dart';
+import '../features/khalti_payment_form.dart';
 import '../model/product_model.dart';
 import '../widgets/custom_button.dart';
 
@@ -30,8 +30,11 @@ class CartScreen extends StatelessWidget {
                     return Column(
                       children: [
                         Expanded(
-                          child: ListView.builder(
+                          child: ListView.separated(
                             itemCount: state.cartItems.length,
+                            separatorBuilder: (context, index) => const Divider(
+                              color: Colors.grey,
+                            ),
                             itemBuilder: (context, index) {
                               final product = state.cartItems[index];
                               return ListTile(
@@ -39,7 +42,10 @@ class CartScreen extends StatelessWidget {
                                 subtitle:
                                     Text('Price:\$${product.productPrice}'),
                                 trailing: IconButton(
-                                  icon: Icon(Icons.remove_shopping_cart),
+                                  icon: const Icon(
+                                    Icons.remove_shopping_cart,
+                                    color: Colors.red,
+                                  ),
                                   onPressed: () {
                                     context
                                         .read<FetchProductBloc>()
@@ -54,7 +60,7 @@ class CartScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
                             'Total Price: \$${state.totalPrice!.toStringAsFixed(2)}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -62,8 +68,24 @@ class CartScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: CustomButton(
-                                title: "Checkout",
+                                title: "Khalti Pay",
                                 onPressed: () {
+                                  /*Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => WalletPayment(
+                                        products: product ??
+                                            Products(
+                                              productName: "not found",
+                                              productPrice:
+                                                  state.totalPrice!.toInt(),
+                                              productCategory: "not found",
+                                              productDescription: "not found",
+                                              productLocation: "not found",
+                                            ),
+                                      ),
+                                    ),
+                                  );*/
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:campmart/bloc/fetch_product_bloc/fetch_product_bloc.dart';
+import 'package:campmart/pages/cart_screen.dart';
 import 'package:campmart/pages/product_detail_view.dart';
+import 'package:campmart/utils/constant.dart';
 import 'package:campmart/utils/custom_storage.dart';
 import 'package:campmart/utils/size.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,13 @@ class _ProductGridState extends State<ProductGrid> {
       ),*/
       appBar: AppBar(
         title: const Text('All Products'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const CartScreen()));
+          },
+          icon: const Icon(Icons.shopping_cart),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -119,7 +128,8 @@ class _ProductGridState extends State<ProductGrid> {
                                     children: [
                                       Expanded(
                                         child: CachedNetworkImage(
-                                          imageUrl: "${product.productImage}",
+                                          imageUrl:
+                                              "${ApiUrl.basUrl}${product.productImage}",
                                           fit: BoxFit.cover,
                                           placeholder: (context, url) => Icon(
                                             Icons.image,
@@ -145,9 +155,19 @@ class _ProductGridState extends State<ProductGrid> {
                                           height:
                                               SizeConfig.screenHeight! * 0.01),
                                       Text(
-                                          'Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}'),
+                                        'New Price:\$${product.productPrice != null ? product.productPrice!.toStringAsFixed(2) : ""}',
+                                      ),
                                       Text(
-                                          "Location: ${product.productLocation ?? ""}"),
+                                        "Old Price:\$${product.oldPrice != null ? product.oldPrice!.toStringAsFixed(2) : ""}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall!
+                                            .copyWith(
+                                              decoration: product.available!
+                                                  ? TextDecoration.lineThrough
+                                                  : TextDecoration.none,
+                                            ),
+                                      ),
                                     ],
                                   ),
                                 ),

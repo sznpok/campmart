@@ -6,12 +6,19 @@ import 'package:campmart/utils/size.dart';
 import 'package:campmart/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khalti/khalti.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 import 'bloc/bottom_nav_bar_bloc/home_page_bloc.dart';
 import 'bloc/fetch_product_bloc/fetch_product_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Khalti.init(
+    publicKey: 'test_public_key_d5d9f63743584dc38753056b0cc737d5',
+    enabledDebugging: false,
+  );
+  KhaltiService.publicKey = 'test_public_key_d5d9f63743584dc38753056b0cc737d5';
   runApp(const MyApp());
 }
 
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return KhaltiScope(
-        publicKey: 'test_public_key_d5d9f63743584dc38753056b0cc737d5',
+        publicKey: 'test_public_key_dc74e0fd57cb46cd93832aee0a507256',
         enabledDebugging: true,
         builder: (context, navKey) {
           return MultiBlocProvider(
@@ -46,6 +53,10 @@ class MyApp extends StatelessWidget {
               navigatorKey: navKey,
               debugShowCheckedModeBanner: false,
               theme: theme(context),
+              supportedLocales: const [
+                Locale('en', 'US'),
+                Locale('ne', 'NP'),
+              ],
               localizationsDelegates: const [
                 KhaltiLocalizations.delegate,
               ],

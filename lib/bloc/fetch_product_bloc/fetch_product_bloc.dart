@@ -19,7 +19,7 @@ class FetchProductBloc extends Bloc<FetchProductEvent, FetchProductState> {
       try {
         final response = await productRepo.fetchProducts();
         if (response.statusCode == 200) {
-          final List<dynamic> dataList = response.data['products'];
+          final List<dynamic> dataList = response.data;
           final List<Products> products =
               dataList.map((data) => Products.fromJson(data)).toList();
           emit(FetchProductLoaded(products: products));
@@ -35,7 +35,7 @@ class FetchProductBloc extends Bloc<FetchProductEvent, FetchProductState> {
           emit(FetchProductAuthError());
         } else {
           emit(FetchProductError(
-            message: e.message!,
+            message: e.message ?? "Unknown error",
           ));
         }
       } catch (e) {

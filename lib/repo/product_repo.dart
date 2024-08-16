@@ -13,9 +13,7 @@ class ProductRepo {
   };
 
   Future<Response> fetchProducts() async {
-    String url = "${ApiUrl.basUrl}product/get_all_products";
-    log("Url $url");
-
+    String url = "${ApiUrl.basUrl}/products/allproducts";
     try {
       final response = await dio.get(
         url,

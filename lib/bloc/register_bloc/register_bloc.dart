@@ -20,7 +20,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     try {
       await authRepo.registerUser(
         name: event.name,
-        username: event.username,
         email: event.email,
         password: event.password,
       );

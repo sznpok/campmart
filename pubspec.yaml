@@ -45,6 +45,7 @@ dependencies:
   dotted_border: ^2.1.0
   file_picker: ^8.1.1
   fluttertoast: ^8.2.8
+  khalti: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -23,7 +23,14 @@ ThemeData theme(BuildContext context) {
       ),
     ),
     buttonTheme: const ButtonThemeData(
-      buttonColor: primaryColor,
+      buttonColor: primaryColor, // Change button color
+    ),
+
+    buttonBarTheme: const ButtonBarThemeData(
+      alignment: MainAxisAlignment.spaceEvenly,
+      buttonPadding: EdgeInsets.symmetric(horizontal: 10),
+      buttonMinWidth: 0,
+      buttonTextTheme: ButtonTextTheme.primary,
     ),
     // cardColor: primaryColor.withOpacity(0.1),
     textButtonTheme: TextButtonThemeData(
