@@ -1,4 +1,3 @@
-import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:campmart/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import '../utils/size.dart';
 import '../utils/theme.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_toast.dart';
+import 'bottom_nav_bar_screen.dart';
 
 @override
 class LoginScreen extends StatefulWidget {
@@ -187,7 +187,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ProductGrid(),
+                                      builder: (context) =>
+                                          const BottomNavBarScreen(),
                                     ),
                                     (route) => false,
                                   );

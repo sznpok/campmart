@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:all_sensors/all_sensors.dart';
 import 'package:campmart/bloc/add_product_bloc/add_product_bloc.dart';
 import 'package:campmart/pages/cart_screen.dart';
+import 'package:campmart/pages/profile_screen.dart';
 import 'package:campmart/pages/proudct_list_view.dart';
 import 'package:campmart/utils/size.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -28,11 +30,81 @@ class BottomNavBarScreen extends StatefulWidget {
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _selectedIndex = 0;
   DateTime? backButtonPressTime;
+  final List<double> _accelerometerValues = [0, 0, 0];
+  final double _shakeThreshold = 15.0;
+
+  bool _isShakeDetected(AccelerometerEvent event) {
+    double magnitude =
+        event.x * event.x + event.y * event.y + event.z * event.z;
+    magnitude = magnitude / (9.81 * 9.81);
+    return magnitude > _shakeThreshold;
+  }
+
+  void _showReportIssueModal() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: IntrinsicHeight(
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Report a Bug or Issue',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Describe the issue',
+                      ),
+                      maxLines: 4,
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle the submit action
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Submit'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
     _selectedIndex = 0;
     super.initState();
+    accelerometerEvents!.listen((AccelerometerEvent event) {
+      setState(() {
+        _accelerometerValues[0] = event.x;
+        _accelerometerValues[1] = event.y;
+        _accelerometerValues[2] = event.z;
+      });
+
+      if (_isShakeDetected(event)) {
+        _showReportIssueModal();
+      }
+    });
   }
 
   @override
@@ -51,6 +123,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               return ProductGrid();
             case Page2():
               return const CartScreen();
+            case Page3():
+              return const ProfileScreen();
             default:
               return const SizedBox();
           }
@@ -124,6 +198,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart),
                 label: "Cart",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: "Profile",
               ),
             ],
           ),

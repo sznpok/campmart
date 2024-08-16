@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:campmart/bloc/fetch_product_bloc/fetch_product_bloc.dart';
-import 'package:campmart/pages/cart_screen.dart';
 import 'package:campmart/pages/product_detail_view.dart';
 import 'package:campmart/utils/constant.dart';
 import 'package:campmart/utils/custom_storage.dart';
@@ -42,7 +41,8 @@ class _ProductGridState extends State<ProductGrid> {
       ),*/
       appBar: AppBar(
         title: const Text('All Products'),
-        leading: IconButton(
+
+        /*leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const CartScreen()));
@@ -60,7 +60,7 @@ class _ProductGridState extends State<ProductGrid> {
             },
             icon: const Icon(Icons.logout),
           ),
-        ],
+        ],*/
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
